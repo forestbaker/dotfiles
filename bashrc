@@ -26,7 +26,7 @@ reset
 case "$(uname)" in
   "Darwin") echo 'Running: OS X' ;;  
   "Linux") echo 'Running: GNU/LINUX' ;;
-  *) echo 'Running: [Silent,Deep]' ;;
+  *) echo 'Running: Silent/Deep' ;;
 esac
 
 # Turn off UTF-8, use ASCII only
@@ -104,7 +104,7 @@ alias l='ls -CF'
 alias NoComment="egrep -hv '^#|^$'"
 
 # update date and time from ntp server
-alias SetTime='ntpdate -u us.pool.ntp.org'
+alias SetTime='ntpdate -u us.pool.ntp.org &'
 
 # quick debug for bash scripts | qdebug
 #alias qdebug="PS4='\\t.\$(date +%N)+ ' bash -ex"
@@ -115,24 +115,27 @@ alias SetTime='ntpdate -u us.pool.ntp.org'
 #       the tao
 # =============================
 
+[ $EUID -eq 0 ] && SetTime || echo 'Hide not your talents. They for use were made. What's a sundial in the shade.'
+
 # Sanity check
 # { [ -d "$HOME" ] && [ -w "$HOME" ] && [ -r "$HOME" ] } && echo "$HOME is home. Welcome, Vilkommen, Come on in!" || echo "$HOME may not be safe"
-[[ -d "$HOME" && -w "$HOME" && -r "$HOME" ]] && printf '%s\n\n' "$HOME is home. Welcome, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane!"
+[[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane!"
 
 
 
 # printf '%s\n\n'
 
-mkdir -m 0700 -p "$HOME/klooj/[projects,scripts,sandbox,docs,bin]"
+mkdir -m 0700 -p "$HOME/klooj/[projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes]"
 mkdir -m 0700 -p "$HOME/[bin,scripts]"
 
-[ -d "$HOME/.ssh" ] && : || printf '%s\n\n' '.ssh folder NOT found"
 
 [[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || echo "got a directories problem here"
 
 # =============================
 #       ssh
 # =============================
+
+[ -d "$HOME/.ssh" ] && : || printf '%s\n\n' '.ssh folder NOT found'
 
 # =============================
 #       say something clever
