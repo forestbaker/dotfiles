@@ -32,6 +32,9 @@ esac
 # Turn off UTF-8, use ASCII only
 # LC_ALL=C
 
+#set -o notify
+#set -o braceexpand
+
 # check the size of the window after each command, update LINES & COLUMNS
 shopt -s checkwinsize
 echo "Lines: $LINES"
@@ -110,6 +113,19 @@ alias SetTime='ntpdate -u us.pool.ntp.org &'
 #alias qdebug="PS4='\\t.\$(date +%N)+ ' bash -ex"
 
 [[ -s $HOME/klooj/dotfiles/.bash_alii && -r $HOME/klooj/dotfiles/.bash_alii ]] && source $HOME/klooj/dotfiles/.bash_alii
+
+# =============================
+#       functions
+# =============================
+#kill a process by name
+pskill()
+{
+if [ -z $1 ]; then
+echo -e \e[0;31;1mUsage: pskill [processName]\e[m;
+else
+ps -au $USER | grep -i $1 |awk {print kill -9 $1}|sh
+fi
+}
 
 # =============================
 #       the tao
