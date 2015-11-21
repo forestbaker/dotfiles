@@ -1,10 +1,15 @@
 #!/bin/rm
+
+# Dedicated to Ken Thompson & Dennis Ritchie
+# and Linus Torvalds & Richard Stallman
+# The architects of humanites greatest collaborative achievement
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # [         forestsbaker |  dotfiles project 
 # +-----------------------------------------------+
 # [ 984623255]  |  2015-10-22  |  .bashrc  |  1.0
 # +-----------------------------------------------+
-# [           create a cozy environment
+# [           create a cozy environ
 # +-----------------------------------------------+
 # [ caveat emptor | tempus fugit | ars gratia artis
 # [         rident stolidi verba Latina
@@ -43,6 +48,7 @@ set -o vi
 # set -g default-terminal "screen-256color"
 umask 0022
 
+# export is portable
 export EDITOR='vi'
 export PAGER='less'
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) # FROM http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
@@ -69,12 +75,12 @@ export TIMEFORMAT=%R
 #       set the prompt
 # =============================
 
-color_prompt=yes
-force_color_prompt=yes
+export color_prompt=yes
+export force_color_prompt=yes
 
-[ $EUID -eq 0 ] && export PS1='\[\e[7;31m\][\u@\h \W]\$\[\e[0m\] ' || export PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
-
-# [ -n "$SSH_CLIENT" ] && export PS1="\[\e[00;36m\]\u@\[\e[0;37m\]\h\[\e[00;36m\]:\W \$>\[\e[0m\]"
+# fancy this up with case 
+[[ $EUID -eq 0 ]] && export PS1='\[\e[7;31m\][\u@\h \W]\$\[\e[0m\] ' || export PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
+# [ -n "$SSH_CLIENT" ] && export PS1=''\[\e[00;36m\]\u@\[\e[0;37m\]\h\[\e[00;36m\]:\W \$>\[\e[0m\] '
 
 # =============================
 #       create  alii
@@ -84,24 +90,25 @@ force_color_prompt=yes
 # echo Bef = $((`cat /home/$USER/.bash_history | sort | uniq | wc -l`*100/`cat /home/$USER/.bash_history | wc -l`))%
 
 ### customize system binaries ###
-# makes less quit if input fits one screen
+# makes less quit if input fits within one screen
 alias less='less -F'
-# colorizes matched pattern
+# colorize pattern match
 alias grep='grep --color=always'
 alias grep='fgrep --color=always'
 alias grep='egrep --color=always'
 
+# list
 # alias ls='ls -lhGpt --color=always'
 alias ls='ls --color=always'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 ### 
 # 10 largest files/folders
 alias dusk='du -sk | sort -n | tail'
 
-# list
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+
 
 # removes lines that start with # or 
 alias NoComment="egrep -hv '^#|^$'"
@@ -112,46 +119,45 @@ alias SetTime='ntpdate -u us.pool.ntp.org &'
 # quick debug for bash scripts | qdebug
 #alias qdebug="PS4='\\t.\$(date +%N)+ ' bash -ex"
 
+# kind of portable
 [[ -s $HOME/klooj/dotfiles/.bash_alii && -r $HOME/klooj/dotfiles/.bash_alii ]] && source $HOME/klooj/dotfiles/.bash_alii
 
 # =============================
 #       functions
 # =============================
-#kill a process by name
-pskill()
-{
-if [ -z $1 ]; then
-echo -e \e[0;31;1mUsage: pskill [processName]\e[m;
-else
-ps -au $USER | grep -i $1 |awk {print kill -9 $1}|sh
-fi
+
+# kill a process by name
+# needs more work - use pgrep and pkill 
+pskill() {
+  if [ -z "$1" ]; then
+    echo -e "\e[0;31;1mUsage: pskill [processName]\e[m"
+  else
+    ps -au "$USER" | grep -i "$1" | awk '{print kill -9 $1}' | sh
+  fi
 }
 
 # =============================
 #       the tao
 # =============================
 
-[ $EUID -eq 0 ] && SetTime || echo 'Hide not your talents. They for use were made. What's a sundial in the shade.'
+[[ $EUID -eq 0 ]] && SetTime || echo "Hide not your talents. They for use were made. What's a sundial in the shade? -Benji Frankles"
 
-# Sanity check
+# Sanity check - may not need the $ wih [[
 # { [ -d "$HOME" ] && [ -w "$HOME" ] && [ -r "$HOME" ] } && echo "$HOME is home. Welcome, Vilkommen, Come on in!" || echo "$HOME may not be safe"
-[[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane!"
-
-
+[[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane! Get a hotel!"
 
 # printf '%s\n\n'
 
-mkdir -m 0700 -p "$HOME/klooj/[projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes]"
-mkdir -m 0700 -p "$HOME/[bin,scripts]"
+mkdir -m 0700 -p "$HOME"/klooj/{projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes}
+mkdir -m 0700 -p "$HOME"/{bin,scripts}
 
-
-[[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || echo "got a directories problem here"
+[[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || echo 'got a directories problem here'
 
 # =============================
 #       ssh
 # =============================
 
-[ -d "$HOME/.ssh" ] && : || printf '%s\n\n' '.ssh folder NOT found'
+[[ -d $HOME/.ssh ]] && : || printf '%s\n\n' '.ssh folder NOT found'
 
 # =============================
 #       say something clever
@@ -165,3 +171,4 @@ mkdir -m 0700 -p "$HOME/[bin,scripts]"
 # =============================
 
 # Version 1.0 - Unification!
+# Version 1.1 - Beautification!
