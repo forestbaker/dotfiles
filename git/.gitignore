@@ -1,0 +1,33 @@
+# compiled files #
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# temp files #
+*.swp
+*.swo
+*~
+
+# compressed files #
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# log and database files #
+*.log
+*.sql
+*.sqlite
+
+# hidden OS files #
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
