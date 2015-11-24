@@ -1,0 +1,29 @@
+[user]
+	name = forestbaker
+	email = 
+	
+[core]
+  autocrlf = true
+  editor = vi
+	whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
+[color]
+	ui = true
+	
+[push]
+	default = simple
+	
+[pull]
+	rebase = true
+	
+[rerere]
+	enable = true
+	autoupdate = true
+
+[gitflow "prefix"]
+	feature = feature-
+	release = release-
+	refactor = refactor-
+	hotfix = hotfix-
+	support = support-
+	versiontag = v
