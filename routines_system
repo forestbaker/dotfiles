@@ -1,0 +1,28 @@
+# ~/klooj/dotfiles/routines_system
+# 
+#----| comment )----------------------------------------------------------+
+#           system functions:
+#                           small programs
+#                           distilled one-liners
+#-------------------------------------------------------------------------+
+
+#====| function ]============#=============#==============#================#
+#                name        : history efficiency formula function
+#                usage       : Heff
+#                result      : percentage of unrepeated commands in history
+#==========================================================================#
+Heff() {
+  local unique_commands
+  local total_commands
+  local history_efficiency
+  
+  if [[ -s $HOME/.bash_history ]]; 
+    then
+      unique_commands="$(sort -u .bash_history | wc -l)"
+      total_commands="$(grep '' .bash_history | wc -l)"
+      history_efficiency="$(echo "scale=2; ${unique_commands}/${total_commands}*100 | bc -q)"
+      printf '%s\n\n' "history efficiency percentage: ${history_efficiency}%"
+    else
+      printf '%s\n\n' "$HOME/.bash_history does not exist or is empty"
+  fi
+}
