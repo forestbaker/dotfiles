@@ -1,0 +1,65 @@
+# ~/klooj/dotfiles/routines_format
+
+#====| function ]============#=============#==============#================#
+#                name     : Print Color - printc
+#                purpose  : Provide Foreground & Background colors and Text
+#                usage    : printc red blue 'Hello World!'
+#==========================================================================#
+printc() { 
+	local fg
+	fg="${1}"
+	local bg
+	bg="${2}"
+	local text
+	text="${3}"
+	
+	case "$fg" in
+  	red)
+			fg="31m"
+		;;
+		green)
+			fg="32m"
+		;;
+		yellow) 
+			fg="33m"
+		;;
+		blue) 
+			fg="34m"
+		;;
+		white) 
+			fg="37m"
+		;;
+		black) 
+			fg="30m"
+		;;
+		*) 
+			fg="37m"
+		;;
+	esac
+		
+	case "$bg" in
+		red)
+			bg="41m"
+		;;
+		green)
+			bg="42m"
+		;;
+		yellow)
+			bg="43m"
+		;;
+		blue)
+			bg="44m"
+		;;
+		white)
+			bg="47m"
+		;;
+		black)
+			bg="40m"
+		;;
+		*)
+			bg="40m"
+		;;
+	esac
+		# todo: use printf instead
+		echo -en "\033[$fg\033[$bg$text\033[0m" 
+}
