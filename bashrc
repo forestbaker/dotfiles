@@ -40,10 +40,8 @@ esac
 #set -o notify
 #set -o braceexpand
 
-# check the size of the window after each command, update LINES & COLUMNS
+# check the length/width of the shell and update $LINES & COLUMNS
 shopt -s checkwinsize
-echo "Lines: $LINES"
-echo "Columns: $COLUMNS"
 set -o vi
 # set -g default-terminal "screen-256color"
 umask 0022
@@ -86,42 +84,11 @@ export force_color_prompt=yes
 # [ -n "$SSH_CLIENT" ] && export PS1=''\[\e[00;36m\]\u@\[\e[0;37m\]\h\[\e[00;36m\]:\W \$>\[\e[0m\] '
 
 #====| section }==========================================================>
-#				create  alii
+#				load shell alias library
 #=========================================================================>
 
-# bash efficiency formula 
-# echo Bef = $((`cat /home/$USER/.bash_history | sort | uniq | wc -l`*100/`cat /home/$USER/.bash_history | wc -l`))%
-
-### customize system binaries ###
-# makes less quit if input fits within one screen
-alias less='less -F'
-# colorize pattern match
-alias grep='grep --color=always'
-alias grep='fgrep --color=always'
-alias grep='egrep --color=always'
-
-# list
-# alias ls='ls -lhGpt --color=always'
-alias ls='ls --color=always'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-### 
-# 10 largest files/folders
-alias dusk='du -sk | sort -n | tail'
-
-# removes lines that start with # or 
-alias NoComment="egrep -hv '^#|^$'"
-
-# update date and time from ntp server
-alias SetTime='ntpdate -u us.pool.ntp.org &'
-
-# quick debug for bash scripts | qdebug
-#alias qdebug="PS4='\\t.\$(date +%N)+ ' bash -ex"
-
-# not portable [[
-[[ -s $HOME/klooj/dotfiles/.bash_alii && -r $HOME/klooj/dotfiles/.bash_alii ]] && source $HOME/klooj/dotfiles/.bash_alii
+# check for 
+[[ -s $HOME/klooj/dotfiles/.shell_alii && -r $HOME/klooj/dotfiles/.shell_alii ]] && source "${HOME}"/klooj/dotfiles/.shell_alii
 
 #====| section }==========================================================>
 #				functions
@@ -138,23 +105,6 @@ pskill() {
 }
 
 #====| section }==========================================================>
-#				the tao
-#=========================================================================>
-
-[[ $EUID -eq 0 ]] && SetTime || echo "Hide not your talents. They for use were made. What's a sundial in the shade? -Benji Frankles"
-
-# Sanity check
-# { [ -d "$HOME" ] && [ -w "$HOME" ] && [ -r "$HOME" ] } && echo "$HOME is home. Welcome, Vilkommen, Come on in!" || echo "$HOME may not be safe"
-[[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane! Get a hotel!"
-
-# printf '%s\n\n'
-
-mkdir -m 0700 -p "$HOME"/klooj/{projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes}
-mkdir -m 0700 -p "$HOME"/{bin,scripts}
-
-[[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || echo 'got a directory problem here'
-
-#====| section }==========================================================>
 #				configure ssh
 #=========================================================================>
 
@@ -166,6 +116,25 @@ mkdir -m 0700 -p "$HOME"/{bin,scripts}
 
 [[ -d $HOME/klooj/quotes ]] && NoComment $HOME/klooj/quotes/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
 [[ -s $HOME/motd.txt ]] && grep '' motd.txt || :
+
+#====| section }==========================================================>
+#				the tao
+#=========================================================================>
+
+# set the time if root
+[[ $EUID -eq 0 ]] && SetTime || printf '%s\n\n' "Hide not your talents. They for use were made. What's a sundial in the shade? -Benji Frankles"
+
+# sanity check $HOME
+# { [ -d "$HOME" ] && [ -r "$HOME" ] && [ -w "$HOME" ] } && echo "$HOME is home. Welcome, Vilkommen, Come on in!" || echo "$HOME may not be safe"
+[[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane! Get a hotel!"
+
+
+mkdir -m 0700 -p "$HOME"/klooj/{projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes}
+mkdir -m 0700 -p "$HOME"/{bin,scripts}
+
+[[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || :
+
+printf '%s\n\n' "Screen Length & Width: $LINES x $COLUMNS"
 
 #====| section }==========================================================>
 #				version history
