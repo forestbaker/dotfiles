@@ -26,3 +26,13 @@ Heff() {
       printf '%s\n\n' "$HOME/.bash_history does not exist or is empty"
   fi
 }
+
+#====| function ]============#=============#==============#================#
+#                name        : CleanBeforeExit
+#                usage       : trap CleanBeforeExit EXIT
+#                result      : clean up before script exits
+#==========================================================================#
+CleanBeforeExit() {
+  info "Cleaning up. Done"
+}
+#trap CleanBeforeExit EXIT
