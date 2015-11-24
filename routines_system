@@ -36,3 +36,26 @@ CleanBeforeExit() {
   info "Cleaning up. Done"
 }
 #trap CleanBeforeExit EXIT
+
+#====| function ]============#=============#==============#================#
+#                name    : SetupSSH
+#                usage   : SetupSSH username
+#                result  : create .ssh directory, SSH Keys and set permissions
+#==========================================================================#
+# IN PROGRESS!
+SetupSSH() {
+  local user_id
+  user_id=${1:-forest}
+
+  echo "# Initializing SSH key directory, files, and permissions."
+  mkdir -m 0700 -p ${HOME}/${user_id}.ssh
+#increase key complexity / create two keys
+  ssh-keygen -q -N '' -f ${HOME}/${user_id}.ssh/id_rsa
+  ssh-keygen -q -N '' -f ${HOME}/${user_id}.ssh/id_rsa
+#
+  chmod 600 ${HOME}/${user_id}.ssh/id_rsa
+  chmod 644 ${HOME}/${user_id}.ssh/id_rsa.pub
+  echo
+  echo "# Example connection command that should now work:"
+  echo "ssh -i ${HOME}/${user_id}.ssh/id_rsa ${user_id}@example.com"
+}
