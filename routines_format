@@ -1,42 +1,21 @@
 # ~/klooj/dotfiles/routines_format
 
 #====| function ]============#=============#==============#================#
-#                name     : Print Color - printc
-#                purpose  : Provide Foreground & Background colors and Text
-#                usage    : printc red blue 'Hello World!'
+#                name     :  printc - print color
+#                purpose  :  pretty print colored text 
+#                usage    :  printc black green 'Hello World!'
+#								    ^--bg ^--fg ^---------text
 #==========================================================================#
+# todo: use printf instead of echo
 printc() { 
-	local fg
-	fg="${1}"
-	local bg
-	bg="${2}"
-	local text
-	text="${3}"
+	local bg fg text default_text
+	bg="${1}"
+	shift
+	fg="${2}"
+	shift
+	text="${@}"
+	default_text='Hello World!'
 	
-	case "$fg" in
-  	red)
-			fg="31m"
-		;;
-		green)
-			fg="32m"
-		;;
-		yellow) 
-			fg="33m"
-		;;
-		blue) 
-			fg="34m"
-		;;
-		white) 
-			fg="37m"
-		;;
-		black) 
-			fg="30m"
-		;;
-		*) 
-			fg="37m"
-		;;
-	esac
-		
 	case "$bg" in
 		red)
 			bg="41m"
@@ -60,6 +39,33 @@ printc() {
 			bg="40m"
 		;;
 	esac
-		# todo: use printf instead
-		echo -en "\033[$fg\033[$bg$text\033[0m" 
+	
+	case "$fg" in
+	  	red)
+			fg="31m"
+		;;
+		green)
+			fg="32m"
+		;;
+		yellow) 
+			fg="33m"
+		;;
+		blue) 
+			fg="34m"
+		;;
+		white) 
+			fg="37m"
+		;;
+		black) 
+			fg="30m"
+		;;
+		*) 
+			fg="37m"
+		;;
+	esac
+	
+	[ -z "$test" ] && test=$default_text || :
+	
+	echo -en "\033[$fg\033[$bgblblahblahthequickredfoxjumpedoverthelazybrowndogs\033[0m" 
 }
+
