@@ -4,7 +4,7 @@
 #                name     :  printc - print color
 #                purpose  :  pretty print colored text 
 #                usage    :  printc black green 'Hello World!'
-#								    ^--bg ^--fg ^---------text
+#				    ^--bg ^--fg ^---------text
 #==========================================================================#
 # todo: use printf instead of echo
 printc() { 
@@ -69,3 +69,13 @@ printc() {
 	echo -en "\033[$fg\033[$bgblblahblahthequickredfoxjumpedoverthelazybrowndogs\033[0m" 
 }
 
+
+#====| function ]============#=============#==============#================#
+#                name     :  printdivider - print divider
+#                purpose  :  print a user specified divider or defaults to =
+#                usage    :  printdivider +====+
+#==========================================================================#
+printdivider() {
+
+
+}
