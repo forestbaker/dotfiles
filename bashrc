@@ -16,18 +16,19 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # stop non-interactive scripts from using this
-#[ -z "$PS1" ] && return
+#[ -z "$PS1" ] && return || :
+#[ "$0" contains - ] && return || :
 
 case "$-" in
   *i*) ;;
-  *) return;;
+  *) return ;;
 esac
 
 #====| section }==========================================================>
 #				create the environment
 #=========================================================================>
 
-reset
+#reset
 case "$(uname)" in
   "Darwin") echo 'Running: OS X' ;;  
   "Linux") echo 'Running: GNU/LINUX' ;;
@@ -55,19 +56,19 @@ export PAGER='less'
 WORKING_DIRECTORY="$(/bin/pwd -P)"
 
 #====| section }==========================================================>
-#				shell command history settings
+#               shell command history settings
 #=========================================================================>
 
 shopt -s histappend
 
 # add this to ignore leading whitespace [ \t]*
 export HISTIGNORE='&:history:ls:ps:ps -A:[bf]g:exit'
-export HISTCONTROL=ignoredups:ignoreboth
+export HISTCONTROL='ignoredups:ignoreboth'
 export HISTTIMEFORMAT='[%Y/%m/%d %H:%M] '
-export HISTSIZE=10000
-export HISTFILESIZE=20000
+export HISTSIZE='10000'
+export HISTFILESIZE='20000'
 export PROMPT_COMMAND="history -a"
-export TIMEFORMAT=%R
+export TIMEFORMAT='%R'
 
 #bind 'set completion-ignore-case on'
 #bind 'set mark-symlinked-directories on'
