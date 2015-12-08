@@ -48,8 +48,9 @@ set -o vi
 umask 0022
 
 # export is portable
-export EDITOR='vi'
-export PAGER='less'
+export EDITOR PAGER WORKING_DIRECTORY
+readonly EDITOR='vi'
+readonly PAGER='less'
 
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) - https://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Above is an overly complicated way to do: 
