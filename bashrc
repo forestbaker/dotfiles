@@ -135,7 +135,7 @@ mkdir -m 0700 -p "$HOME"/{bin,scripts}
 
 [[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || :
 
-printf '%s\n\n' "Screen Length & Width: $LINES x $COLUMNS"
+printf '%s\n\n' "Screen Length & Width: $COLUMNS x $LINES"
 
 #====| section }==========================================================>
 #				version history
