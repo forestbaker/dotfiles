@@ -56,6 +56,11 @@ readonly PAGER='less'
 # Above is an overly complicated way to do: 
 WORKING_DIRECTORY="$(/bin/pwd -P)"
 
+export H_Projects="${HOME}/klooj/projects"
+export H_Dotfiles="${HOME}/klooj/dotfiles"
+export H_Library="${HOME}/klooj/dotfiles/lib"
+export H_Quoth="${HOME}/klooj/dotfiles/quoth"
+
 #====| section }==========================================================>
 #               shell command history settings
 #=========================================================================>
@@ -82,7 +87,7 @@ export color_prompt=yes
 export force_color_prompt=yes
 
 # fancy this up with case 
-[[ $EUID -eq 0 ]] && export PS1='\[\e[7;31m\][\u@\h \W]\$\[\e[0m\] ' || export PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
+[ $EUID -eq 0 ] && export PS1='\[\e[7;31m\][\u@\h \W]\$\[\e[0m\] ' || export PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
 # [ -n "$SSH_CLIENT" ] && export PS1=''\[\e[00;36m\]\u@\[\e[0;37m\]\h\[\e[00;36m\]:\W \$>\[\e[0m\] '
 
 #====| section }==========================================================>
@@ -90,7 +95,7 @@ export force_color_prompt=yes
 #=========================================================================>
 
 # check for 
-[[ -s $HOME/klooj/dotfiles/.shell_alii && -r $HOME/klooj/dotfiles/.shell_alii ]] && source "${HOME}"/klooj/dotfiles/.shell_alii
+[[ -s "${HOME}/klooj/dotfiles/lib/.alii" && -r "${HOME}/klooj/dotfiles/lib/.alii" ]] && source "${HOME}/klooj/dotfiles/lib/.alii"
 
 #====| section }==========================================================>
 #				functions
@@ -116,7 +121,7 @@ pskill() {
 #				say something clever
 #=========================================================================>
 
-[[ -d $HOME/klooj/quotes ]] && NoComment $HOME/klooj/quotes/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
+[[ -d $HOME/klooj/dotfiles/quoth ]] && NoComment $HOME/klooj/dotfiles/quoth/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
 [[ -s $HOME/motd.txt ]] && grep '' motd.txt || :
 
 #====| section }==========================================================>
@@ -131,10 +136,8 @@ pskill() {
 [[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane! Get a hotel!"
 
 
-mkdir -m 0700 -p "$HOME"/klooj/{projects,scripts,sandbox,docs,bin,dotfiles,lib,quotes}
-mkdir -m 0700 -p "$HOME"/{bin,scripts}
-
-[[ -d $HOME/bin && -d $HOME/scripts ]] && export PATH="$HOME/bin:$HOME/scripts:$PATH" || :
+mkdir -m 0700 -p "$HOME"/klooj/{projects/{sand,doc,bin},dotfiles/{lib,quoth}}
+export PATH="$HOME/klooj/projects/bin:$PATH" || :
 
 printf '%s\n\n' "Screen Length & Width: $COLUMNS x $LINES"
 
