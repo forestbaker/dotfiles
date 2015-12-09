@@ -47,19 +47,22 @@ set -o vi
 # set -g default-terminal "screen-256color"
 umask 0022
 
-# export is portable
 #export EDITOR PAGER WORKING_DIRECTORY
 readonly EDITOR='vi'
 readonly PAGER='less'
 
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) - https://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Above is an overly complicated way to do: 
-WORKING_DIRECTORY="$(/bin/pwd -P)"
+H_Dir="$(/bin/pwd -P)"
 
 export H_Projects="${HOME}/klooj/projects"
 export H_Dotfiles="${HOME}/klooj/dotfiles"
 export H_Library="${HOME}/klooj/dotfiles/lib"
 export H_Quoth="${HOME}/klooj/dotfiles/quoth"
+
+export Lib_Alii="${HOME}/klooj/dotfiles/lib/.alii"
+export Lib_System="${HOME}/klooj/dotfiles/lib/.system"
+export Lib_Format="${HOME}/klooj/dotfiles/lib/.format"
 
 #====| section }==========================================================>
 #               shell command history settings
@@ -94,22 +97,13 @@ export force_color_prompt=yes
 #				load shell alias library
 #=========================================================================>
 
-# check for 
 [[ -s "${HOME}/klooj/dotfiles/lib/.alii" && -r "${HOME}/klooj/dotfiles/lib/.alii" ]] && source "${HOME}/klooj/dotfiles/lib/.alii"
 
 #====| section }==========================================================>
 #				functions
 #=========================================================================>
 
-# kill a process by name
-# needs more work - use pgrep and pkill 
-pskill() {
-  if [ -z "$1" ]; then
-    echo -e "\e[0;31;1mUsage: pskill [processName]\e[m"
-  else
-    ps -au "$USER" | grep -i "$1" | awk '{print kill -9 $1}' | sh
-  fi
-}
+[[ -s "${HOME}/klooj/dotfiles/lib/.alii" && -r "${HOME}/klooj/dotfiles/lib/.alii" ]] && source "$Lib_Format"
 
 #====| section }==========================================================>
 #				the tao
