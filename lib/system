@@ -1,9 +1,10 @@
-# ~/klooj/dotfiles/routines_system
+# ~/klooj/dotfiles/lib/system
 # 
 #----| comment )----------------------------------------------------------+
 #           system functions:
 #                           small programs
 #                           distilled one-liners
+#                           routinely used sub-routines
 #-------------------------------------------------------------------------+
 
 #====| function ]============#=============#==============#================#
@@ -28,11 +29,11 @@ Heff() {
 }
 
 #====| function ]============#=============#==============#================#
-#                name        : CleanBeforeExit
+#                name        : CleanExit
 #                usage       : trap CleanBeforeExit EXIT
 #                result      : clean up before script exits
 #==========================================================================#
-CleanBeforeExit() {
+CleanExit() {
   info "Cleaning up. Done"
 }
 #trap CleanBeforeExit EXIT
@@ -43,19 +44,26 @@ CleanBeforeExit() {
 #                result  : create .ssh directory, SSH Keys and set permissions
 #==========================================================================#
 # IN PROGRESS!
-SetupSSH() {
-  local user_id
-  user_id=${1:-forest}
-
-  echo "# Initializing SSH key directory, files, and permissions."
-  mkdir -m 0700 -p ${HOME}/${user_id}.ssh
 #increase key complexity / create two keys
-  ssh-keygen -q -N '' -f ${HOME}/${user_id}.ssh/id_rsa
-  ssh-keygen -q -N '' -f ${HOME}/${user_id}.ssh/id_rsa
-#
+SetupSSH() {
+  local dir_ssh
+  dir_ssh="${HOME}/.ssh/${HOSTNAME}"
+
+  echo 'Creating SSH directory, keys, and setting permissions ... '
+  mkdir -m 0700 -p "$dir_ssh"
+
+  ssh-keygen -q -N '' -f ${dir_ssh}/id_rsa
+  ssh-keygen -q -N '' -f ${dir_ssh}/id_rsa
+
   chmod 600 ${HOME}/${user_id}.ssh/id_rsa
   chmod 644 ${HOME}/${user_id}.ssh/id_rsa.pub
-  echo
-  echo "# Example connection command that should now work:"
-  echo "ssh -i ${HOME}/${user_id}.ssh/id_rsa ${user_id}@example.com"
+}
+
+#====| function ]============#=============#==============#================#
+#                name    : now
+#                usage   : now thats what i call music
+#                result  : appends message to log file in $HOME
+#==========================================================================#
+now() {
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $@" >> $HOME/.now_log
 }
