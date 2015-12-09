@@ -1,18 +1,20 @@
-# $HOME/klooj/dotfiles/.shell_alii
+# $HOME/klooj/dotfiles/lib/.alii
 
 #----| comment )----------------------------------------------------------+
 #             aliases:
 #                 set default options for binaries
 #                 save time and type less
-#                 use functions for more complex stuff
+#                 use functions for complex stuff
 #-------------------------------------------------------------------------+
 
-### customize system binaries ###
+### core utilities ###
 
-# makes less quit if input fits within one screen
+# less
+## makes less quit if input fits within one screen
 alias less='less -F'
 
-# colorize pattern match
+# grep
+## colorize pattern match
 alias grep='grep --color=always'
 alias grep='fgrep --color=always'
 alias grep='egrep --color=always'
@@ -24,7 +26,7 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-### 
+### singletons ###
 # 10 largest files/folders
 alias dusk='du -sk | sort -n | tail'
 
@@ -34,5 +36,5 @@ alias NoComment="egrep -hv '^#|^$'"
 # update date and time from ntp server
 alias SetTime='ntpdate -u us.pool.ntp.org &'
 
-# quick debug for bash scripts | qdebug
+# quick debug for shell
 #alias qdebug="PS4='\\t.\$(date +%N)+ ' bash -ex"
