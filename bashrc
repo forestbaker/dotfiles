@@ -48,7 +48,7 @@ set -o vi
 umask 0022
 
 # export is portable
-export EDITOR PAGER WORKING_DIRECTORY
+#export EDITOR PAGER WORKING_DIRECTORY
 readonly EDITOR='vi'
 readonly PAGER='less'
 
@@ -112,19 +112,6 @@ pskill() {
 }
 
 #====| section }==========================================================>
-#				configure ssh
-#=========================================================================>
-
-[[ -d $HOME/.ssh ]] && : || printf '%s\n\n' '.ssh folder NOT found'
-
-#====| section }==========================================================>
-#				say something clever
-#=========================================================================>
-
-[[ -d $HOME/klooj/dotfiles/quoth ]] && NoComment $HOME/klooj/dotfiles/quoth/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
-[[ -s $HOME/motd.txt ]] && grep '' motd.txt || :
-
-#====| section }==========================================================>
 #				the tao
 #=========================================================================>
 
@@ -135,11 +122,24 @@ pskill() {
 # { [ -d "$HOME" ] && [ -r "$HOME" ] && [ -w "$HOME" ] } && echo "$HOME is home. Welcome, Vilkommen, Come on in!" || echo "$HOME may not be safe"
 [[ -d $HOME && -w $HOME && -r $HOME ]] && printf '%s\n\n' "$HOME is home. Bienvenue, Vilkommen, Come on in!" || printf '%s\n\n' "$HOME may not be sane! Get a hotel!"
 
-
+# create folders, add to path
 mkdir -m 0700 -p "$HOME"/klooj/{projects/{sand,doc,bin},dotfiles/{lib,quoth}}
 export PATH="$HOME/klooj/projects/bin:$PATH" || :
 
 printf '%s\n\n' "Screen Length & Width: $COLUMNS x $LINES"
+
+#====| section }==========================================================>
+#				configure ssh
+#=========================================================================>
+
+[[ -d $HOME/.ssh ]] && : || printf '%s\n\n' '.ssh folder NOT found'
+
+#====| section }==========================================================>
+#				say something clever
+#=========================================================================>
+
+[[ -d $H_Quoth ]] && NoComment ${H_Quoth}/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
+[[ -s $HOME/motd.txt ]] && grep '' motd.txt || :
 
 #====| section }==========================================================>
 #				version history
