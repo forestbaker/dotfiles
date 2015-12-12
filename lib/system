@@ -46,17 +46,16 @@ CleanExit() {
 # IN PROGRESS!
 #increase key complexity / create two keys
 SetupSSH() {
-  local dir_ssh
-  dir_ssh="${HOME}/.ssh/${HOSTNAME}"
-
+  local ssh_rsa_filename
+  ssh_rsa_filename="${HOME}/.ssh/${HOSTNAME}_id_rsa"
+  
   echo 'Creating SSH directory, keys, and setting permissions ... '
-  mkdir -m 0700 -p "$dir_ssh"
 
-  ssh-keygen -q -N '' -f ${dir_ssh}/id_rsa
-  ssh-keygen -q -N '' -f ${dir_ssh}/id_rsa
+  ssh-keygen -q -N '' -f "$ssh_rsa_filename"
+  ssh-keygen -q -N '' -f "$ssh_rsa_filename"
 
-  chmod 600 ${HOME}/${user_id}.ssh/id_rsa
-  chmod 644 ${HOME}/${user_id}.ssh/id_rsa.pub
+  chmod 600 "$ssh_rsa_filename"
+  chmod 644 "${ssh_rsa_filename}.pub"
 }
 
 #====| function ]============#=============#==============#================#
@@ -65,5 +64,5 @@ SetupSSH() {
 #                result  : appends message to log file in $HOME
 #==========================================================================#
 now() {
-  echo "$(date '+%Y-%m-%d %H:%M:%S') - $@" >> $HOME/.now_log
+  echo "$(date '+%Y-%m-%d %H:%M:%S') - $@" >> "${HOME}/.now_log"
 }
