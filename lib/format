@@ -10,9 +10,8 @@
 printc() { 
 	local bg fg text default_text
 	bg="${1}"
-	shift
 	fg="${2}"
-	shift
+	shift 2
 	text="${@}"
 	default_text='Hello World!'
 	
