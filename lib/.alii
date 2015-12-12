@@ -22,7 +22,7 @@ alias grep='egrep --color=always'
 # list
 # alias ls='ls -lhGpt --color=always'
 alias ls='ls --color=always'
-alias ll='ls -alF'
+alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ls -CF'
 
