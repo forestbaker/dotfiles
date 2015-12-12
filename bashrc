@@ -2,7 +2,7 @@
 
 # Dedicated to Ken Thompson & Dennis Ritchie
 # and Linus Torvalds & Richard Stallman
-# The architects of humanites greatest collaborative achievement
+# The architects of humanities greatest collaborative achievement
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # [         forestsbaker |  dotfiles project 
@@ -31,7 +31,7 @@ esac
 #reset
 case "$(uname)" in
   "Darwin") echo 'Running: OS X' ;;  
-  "Linux") echo 'Running: GNU/LINUX' ;;
+  "Linux") echo 'Running: GNU/Linux' ;;
   *) echo 'Running: Silent/Deep' ;;
 esac
 
@@ -41,11 +41,11 @@ esac
 #set -o notify
 #set -o braceexpand
 
-# check the length/width of the shell and update $LINES & COLUMNS
+# check the length/width of the shell and update $LINES & $COLUMNS
 shopt -s checkwinsize
 set -o vi
 # set -g default-terminal "screen-256color"
-umask 0022
+umask 0027
 
 #export EDITOR PAGER WORKING_DIRECTORY
 readonly EDITOR='vi'
