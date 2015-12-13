@@ -50,6 +50,7 @@ umask 0027
 #export EDITOR PAGER WORKING_DIRECTORY
 readonly EDITOR='vi'
 readonly PAGER='less'
+readonly MOTD="${HOME}/motd.txt"
 
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) - https://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Above is an overly complicated way to do: 
@@ -60,9 +61,10 @@ export H_Dotfiles="${HOME}/klooj/dotfiles"
 export H_Library="${HOME}/klooj/dotfiles/lib"
 export H_Quoth="${HOME}/klooj/dotfiles/quoth"
 
-export Lib_Alii="${HOME}/klooj/dotfiles/lib/.alii"
-export Lib_System="${HOME}/klooj/dotfiles/lib/.system"
-export Lib_Format="${HOME}/klooj/dotfiles/lib/.format"
+export Lib_Alii="${H_Library}/.alii"
+export Lib_System="${H_Library}/.system"
+export Lib_Format="${H_Library}/.format"
+export Lib_System="${H_Library}/.design"
 
 #====| section }==========================================================>
 #               shell command history settings
@@ -97,13 +99,16 @@ export force_color_prompt=yes
 #				load shell alias library
 #=========================================================================>
 
-[[ -s "${HOME}/klooj/dotfiles/lib/.alii" && -r "${HOME}/klooj/dotfiles/lib/.alii" ]] && source "${HOME}/klooj/dotfiles/lib/.alii"
+[[ -s "$Lib_Alii" && -r "$Lib_Alii" ]] && source "$Lib_Alii"
 
 #====| section }==========================================================>
 #				functions
 #=========================================================================>
 
-[[ -s "${HOME}/klooj/dotfiles/lib/.alii" && -r "${HOME}/klooj/dotfiles/lib/.alii" ]] && source "$Lib_Format"
+[[ -s "$Lib_Format" && -r "$Lib_Format" ]] && source "$Lib_Format"
+[[ -s "$Lib_Format" && -r "$Lib_System" ]] && source "$Lib_System"
+[[ -s "$Lib_Format" && -r "$Lib_Design" ]] && source "$Lib_Design"
+Lib_System
 
 #====| section }==========================================================>
 #				the tao
@@ -133,7 +138,7 @@ printf '%s\n\n' "Screen Length & Width: $COLUMNS x $LINES"
 #=========================================================================>
 
 [[ -d $H_Quoth ]] && NoComment ${H_Quoth}/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
-[[ -s $HOME/motd.txt ]] && grep '' motd.txt || :
+[[ -s $MOTD ]] && grep '' "$MOTD" || :
 
 #====| section }==========================================================>
 #				version history
