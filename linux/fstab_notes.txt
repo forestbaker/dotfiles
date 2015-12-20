@@ -1,0 +1,28 @@
+Block storage only knows about areas of a volume that have not been written
+When an application frees up space or deletes files, the space is not marked as unused.
+Filesystm contributers have introduced unmap / trim feature at the file system level that reclaims space.  
+These filesystem versions have this feature:
+
+    ext4 (v2.6.36-rc6-35-g7360d17)
+    ext3 (v2.6.37-11-g9c52749)
+    xfs (v2.6.37-rc4-63-ga46db60)
+
+Already available on ESX 5, now its been introduced on Window 2012 server. 
+This would be much useful for many business who are using block level storage like Equallogic , Compellent etc.
+On linux its simple enough it mount the filesystem with discard option. 
+The Kernel should support TRIM feature and file system must include FITRIM support. This feature was included from Linux kernel 2.6.38.
+
+This feature can be verified on RedHat with 'cat /sys/block//queue/discard_max_bytes'
+If the value is zero then the discard option is available.
+
+    [root@server1 ~]# mkfs.ext4 /dev/sdb1
+    [root@server1 ~]# mount -o discard /dev/sdb1 /apps
+
+Edit /etc/fstab and add discard option:
+
+    /dev/sdb1 /apps ext4 defaults,discard 0 1
+
+There are two types of "discard" modes, above is how to setup realtime
+
+1)Realtime discard mode
+2)Batch mode
