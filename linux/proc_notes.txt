@@ -1,0 +1,49 @@
+
+#To see the command-line entry for init
+cat /proc/1/cmdline
+init [5]
+
+#identifies the type of processor and its speed
+cat /proc/cpuinfo
+
+#display devices found on PCI bus
+cat /proc/pci
+
+#identifies the modules that are currently loaded into the kernel
+cat /proc/modules
+
+#Version of the Linux kernel, gcc, name of the Linux distro installed.
+cat /proc/version
+
+#Contains information about uptime of the system.
+cat /proc/uptime
+
+#Measures swap space and its utilization.
+cat /proc/swap
+
+#Keeps track of a variety of different statistics about the system since it was last restarted.
+cat /proc/stat
+
+#Display all PCI device on your system.
+cat /proc/pci
+
+#Information on the various partitions currently available to the system.
+cat /proc/partitions
+
+#This file provides list of all mount point in use by the system.
+cat /proc/mounts
+
+#Displays a list of all modules that have been loaded by the system.
+cat /proc/modules
+
+#Current utilization of primary memory on the system.
+cat /proc/meminfo
+
+#Information about the processors.
+cat /proc/cpuinfo
+
+#File systems supported by the kernel.
+cat /proc/filesystems
+
+#Number of interrupts per IRQ on architecture.
+cat /proc/interrupts
