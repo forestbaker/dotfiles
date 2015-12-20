@@ -1,0 +1,48 @@
+Swap memory is used when the operating system requires more memory than is physically available.  
+The kernel swaps out less used pages and gives memory to the current process that needs the memory immediately.
+So a page of memory is copied to the preconfigured space on the hard disk. Accessing swapped pages on the hard rive is very slow compared to RAM. 
+Swapping pages to disk reduces current application size in memory (RAM).
+
+### How to expand existing swap space ###
+
+Step 1
+Check how much disk space is available
+    #df -h
+
+Step 2
+Create a new partition using fdisk
+Mark the new partition as swap by changing toggle id to 82
+    #fdisk /dev/cciss/c0d0
+
+Step 3
+Run mkswap on the newly created partition
+    #mkswap /dev/cciss/c0d0p9
+    Setting up swapspace version 1, size = 6004416 kB
+
+Step 4
+Run swapon to enable and start using new swap space
+    #swapon /dev/cciss/c0d0p9
+
+Step 5
+Verify the newly added swap space using below commands
+    #cat /proc/swap
+or
+    #swapon -s
+
+Step 6
+Add newly created swap partition to fstab file
+    /dev/cciss/c0d0p9 swap swap defaults 0 0
+
+
+### How to create swap partiton for Logical Volume Manager (LVM) ###
+Assuming swap partiton was created on lvm partition:
+    # swapoff -v /dev/rootvg/swapvol
+    # lvm lvresize /dev/rootvg/swapvol -L +8G (increase from 8 GB to 16 GB)
+    # mkswap /dev/rootvg/swapvol
+    # swapon -va
+
+### How to remove the swap partition for Logical Volume Manager (LVM) ###
+    #swapoff -v /dev/VolGroup00/LogVol01
+    #lvremove /dev/VolGroup00/LogVol01
+    #remove the swap entry from /etc/fstab
+    #/dev/VolGroup00/LogVol01 swap swap defaults 0 0
