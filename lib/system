@@ -3,9 +3,19 @@
 #----| comment )----------------------------------------------------------+
 #           system functions:
 #                           small programs
-#                           distilled one-liners
+#                           exploded one-liners
 #                           routinely used sub-routines
 #-------------------------------------------------------------------------+
+
+#====| function ]============#=============#==============#================#
+#                name        : return the name of the operating system
+#                usage       : ReturnDistro
+#                result      : Ubuntu, Debian, CentOS, etc
+#==========================================================================#
+#TODO: add further tests for bsd/darwin/xyz
+ReturnOS() {
+  echo "$(lsb_release -s -i)"
+}
 
 #====| function ]============#=============#==============#================#
 #                name        : history efficiency formula function
@@ -43,7 +53,6 @@ CleanExit() {
 #                usage   : SetupSSH username
 #                result  : create .ssh directory, SSH Keys and set permissions
 #==========================================================================#
-# IN PROGRESS!
 #increase key complexity / create two keys
 SetupSSH() {
   local ssh_rsa_filename
