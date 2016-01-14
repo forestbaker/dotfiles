@@ -1,0 +1,43 @@
+# ~/klooj/dotfiles/lib/network
+# 
+#----| comment )----------------------------------------------------------+
+#           network functions:
+#                           resolve common issues
+#                           converted one-liners
+#                           routine sub-routines
+#-------------------------------------------------------------------------+
+
+#====| function ]============#=============#==============#================#
+#                name        : create MAC
+#                usage       : createMAC hostname
+#                result      : returns a randomized MAC address
+#                kudos       : Alain Kelder
+#==========================================================================#
+
+createMAC() 
+{
+  if [ -n "$1" ]; 
+    then
+      OID="00:16:3e"
+      RAND=$(echo $1 | md5sum | sed 's/\(..\)\(..\)\(..\).*/\1:\2:\3/')
+      echo "$OID:$RAND"
+    else
+      echo "ERROR: the hostname is required to generate a MAC address, for example:"
+      echo "       $FUNCNAME $HOSTNAME"
+  fi
+}
+
+#====| function ]============#=============#==============#================#
+#                name        : disable IPv6
+#                usage       : disableIPv6
+#                result      : duh
+#                kudos       : Alain Kelder
+#==========================================================================#
+
+#TODO: check /etc/sysctl.conf exists, any alternative locations?
+disableIPv6()
+{
+  if [ "$(ip addr show | grep -c inet6)" -gt '0' ]; then
+    sysctl -a | grep disable_ipv6 | sed 's/0$/1/' | tee -a /etc/sysctl.conf
+    sysctl -p
+}
