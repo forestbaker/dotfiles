@@ -20,11 +20,13 @@ alias grep='fgrep --color=always'
 alias grep='egrep --color=always'
 
 # list
-# alias ls='ls -lhGpt --color=always'
-alias ls='ls --color=always'
-alias ll='ls -alFh'
-alias la='ls -A'
 alias l='ls -CF'
+alias la='ls -A'
+alias ls='ls -lhGpt --color=always'
+alias ll='ls -alFh --time-style long-iso'
+
+#alias ls='ls --color=always'
+#alias ll='ls -alFh'
 
 ### singletons ###
 # 10 largest files/folders
