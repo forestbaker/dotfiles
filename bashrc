@@ -1,8 +1,9 @@
 #!/bin/rm
 
-# Dedicated to Ken Thompson & Dennis Ritchie
-# and Linus Torvalds & Richard Stallman
-# The architects of humanities greatest collaborative achievement
+# Acknowledgement:
+# Ken Thompson & Dennis Ritchie
+# Linus Torvalds & Richard Stallman
+# The architects of humanities greatest gift and collaborative achievement
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # [         forestsbaker |  dotfiles project 
@@ -48,9 +49,10 @@ set -o vi
 umask 0027
 
 #export EDITOR PAGER WORKING_DIRECTORY
-readonly EDITOR='vi'
-readonly PAGER='less'
-readonly MOTD="${HOME}/motd.txt"
+export EDITOR='vi'
+export PAGER='less'
+export MOTD="${HOME}/motd.txt"
+export TIME_STYLE='long-iso'
 
 # DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd ) - https://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
 # Above is an overly complicated way to do: 
@@ -88,8 +90,8 @@ export TIMEFORMAT='%R'
 #				set the prompt
 #=========================================================================>
 
-export color_prompt=yes
-export force_color_prompt=yes
+export color_prompt='yes'
+export force_color_prompt='yes'
 
 # fancy this up with case 
 [ $EUID -eq 0 ] && export PS1='\[\e[7;31m\][\u@\h \W]\$\[\e[0m\] ' || export PS1='\[\e[1;31m\][\u@\h \W]\$\[\e[0m\] '
@@ -108,7 +110,6 @@ export force_color_prompt=yes
 [[ -s "$Lib_Format" && -r "$Lib_Format" ]] && source "$Lib_Format"
 [[ -s "$Lib_Format" && -r "$Lib_System" ]] && source "$Lib_System"
 [[ -s "$Lib_Format" && -r "$Lib_Design" ]] && source "$Lib_Design"
-Lib_System
 
 #====| section }==========================================================>
 #				the tao
@@ -137,7 +138,7 @@ printf '%s\n\n' "Screen Length & Width: $COLUMNS x $LINES"
 #				say something clever
 #=========================================================================>
 
-[[ -d $H_Quoth ]] && NoComment ${H_Quoth}/*.txt | sort -R | tail -1 > $HOME/motd.txt || :
+[[ -d $H_Quoth ]] && NoComment ${H_Quoth}/*.txt | sort -R | tail -1 > "$MOTD" || :
 [[ -s $MOTD ]] && grep '' "$MOTD" || :
 
 #====| section }==========================================================>
