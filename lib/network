@@ -28,16 +28,32 @@ createMAC()
 }
 
 #====| function ]============#=============#==============#================#
-#                name        : disable IPv6
+#                name        : disable kernel IPv6
 #                usage       : disableIPv6
-#                result      : duh
+#                result      : disable IPv6 in kernel config
 #                kudos       : Alain Kelder
 #==========================================================================#
 
 #TODO: check /etc/sysctl.conf exists, any alternative locations?
 disableIPv6()
 {
-  if [ "$(ip addr show | grep -c inet6)" -gt '0' ]; then
-    sysctl -a | grep disable_ipv6 | sed 's/0$/1/' | tee -a /etc/sysctl.conf
+  if [[ "$(ip addr show | grep -c inet6)" -gt '0' ]]; then
+    sysctl -a | grep 'disable_ipv6' | sed 's/0$/1/' | tee -a /etc/sysctl.conf
     sysctl -p
+  fi
+}
+
+#====| function ]============#=============#==============#================#
+#                name        : disable UFW's IPv6
+#                usage       : disableIPv6_ufw
+#                result      : disable IPv6 in the UFW's config
+#==========================================================================#
+
+disableIPv6_ufw()
+{
+  if [[ -f /etc/default/ufw ]]; then
+    sed -i 's/^IPV6=YES/IPV6=NO/I' /etc/default/ufw
+    disable ufw
+    enable ufw
+  fi
 }
