@@ -16,13 +16,13 @@
 
 createMAC() 
 {
-  if [ -n "$1" ]; 
+  if [[ -n "$1" ]]; 
     then
       OID="00:16:3e"
-      RAND=$(echo $1 | md5sum | sed 's/\(..\)\(..\)\(..\).*/\1:\2:\3/')
+      RAND="$(echo $1 | md5sum | sed 's/\(..\)\(..\)\(..\).*/\1:\2:\3/')"
       echo "$OID:$RAND"
     else
-      echo "ERROR: the hostname is required to generate a MAC address, for example:"
+      echo "ERROR: a hostname is required to generate a MAC address, for example:"
       echo "       $FUNCNAME $HOSTNAME"
   fi
 }
