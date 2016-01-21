@@ -52,7 +52,7 @@ disableIPv6()
 disableIPv6_ufw()
 {
   if [[ -f /etc/default/ufw ]]; then
-    sed -i 's/^IPV6=YES/IPV6=NO/I' /etc/default/ufw
+    sed -i 's/^IPV6=yes/IPV6=no/I' /etc/default/ufw
     disable ufw
     enable ufw
   fi
